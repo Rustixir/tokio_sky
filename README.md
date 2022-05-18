@@ -91,7 +91,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 # Attention
   
-  * Producer.dispatcher cannot be **partition** mode unless panic occur
+  * Producer.dispatcher cannot be **partition** mode 
   
   * Processor if have not next stage channel must return `ProcResult::Continue` 
         unless processor (skip) that message  

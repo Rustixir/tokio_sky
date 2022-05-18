@@ -1,28 +1,27 @@
 
-
-![BlueRiver](https://github.com/Rustixir/blueriver/blob/main/logo.jpeg)
+# TokioSky
 
 <div align="center">
 
   <!-- Downloads -->
-  <a href="https://crates.io/crates/blueriver">
-    <img src="https://img.shields.io/crates/d/blueriver.svg?style=flat-square"
+  <a href="https://crates.io/crates/tokio_sky">
+    <img src="https://img.shields.io/crates/d/tokio_sky.svg?style=flat-square"
       alt="Download" />
   </a>
 </div>
 
 
-# BlueRiver
 
 Build concurrent and multi-stage data ingestion and data processing pipelines with Rust+Tokio. 
-BlueRiver allows developers to consume data efficiently from different sources, known as producers, such as Apache Kafka and others. BlueRiver pipelines are highly concurrent, robust
+TokioSky allows developers to consume data efficiently from different sources, known as producers, 
+such as Apache Kafka and others. TokioSky pipelines are highly concurrent, robust
 inspired by elixir broadway
 
 
 
 ## Features
 
-BlueRiver takes the burden of defining concurrent GenStage topologies and provide a simple configuration API that automatically defines concurrent producers, concurrent processing, 
+TokioSky takes the burden of defining concurrent GenStage topologies and provide a simple configuration API that automatically defines concurrent producers, concurrent processing, 
 leading to both time and cost efficient ingestion and processing of data. It features:
 
   * **Producer** - is source of data pipline 
@@ -35,15 +34,15 @@ leading to both time and cost efficient ingestion and processing of data. It fea
 
   * **Customizable** - can use built-in Producer (like Apache Kafka) or write your own Producer 
 
-  * **Batching** - BlueRiver provides built-in batching, allowing you to group messages 
+  * **Batching** - TokioSky provides built-in batching, allowing you to group messages 
         either by size and/or by time. This is important in systems such as Amazon SQS, 
         where batching is the most efficient way to consume messages, both in terms of time and cost.
-        **Good Example** :  imagine processor has to check out a database connection to insert a record for every single insert operation, That’s pretty inefficient, especially if we’re processing lots of inserts.Fortunately, with BlueRiver we can use this technique, is grouping operations into batches, otherwise known as Partitioning. For insert operation, we want to insert entries into the database, but there’s certainly no need to do so one entry at a time.
+        **Good Example** :  imagine processor has to check out a database connection to insert a record for every single insert operation, That’s pretty inefficient, especially if we’re processing lots of inserts.Fortunately, with TokioSky we can use this technique, is grouping operations into batches, otherwise known as Partitioning. For insert operation, we want to insert entries into the database, but there’s certainly no need to do so one entry at a time.
   
-  * **Dynamic batching** - BlueRiver allows developers to batch messages based on custom criteria. For    
+  * **Dynamic batching** - TokioSky allows developers to batch messages based on custom criteria. For    
         example, if your pipeline needs to build batches based on the user_id, email address, etc, 
 
-  * **Ordering and Partitioning**  - BlueRiver allows developers to partition messages across workers, 
+  * **Ordering and Partitioning**  - TokioSky allows developers to partition messages across workers, 
         guaranteeing messages within the same partition are processed in order. For example, if you want to guarantee all events tied to a given user_id are processed in order and not concurrently, you can use Dispatcher with  'Partition mode' option. See "Ordering and partitioning".
 
   * **Data Collector** - when source (Producer) of your app is web server and
@@ -58,7 +57,7 @@ leading to both time and cost efficient ingestion and processing of data. It fea
 
 # Examples :
 
-The complete Examples on [Link](https://github.com/Rustixir/blueriver/tree/main/example).
+The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/example).
 
 
 # Explain: 
@@ -71,7 +70,7 @@ The complete Examples on [Link](https://github.com/Rustixir/blueriver/tree/main/
 
   * producer_buffer_pool - producer internally used buffer for increase throughout
 
-  * run_topology - BlueRiver always have one Producer Layer
+  * run_topology - TokioSky always have one Producer Layer
         and at-least have 1_processor_layer and at-max 5_processor_layer
         and 1 optional layer `batcher` for creating and syncing components must use 
         **run_topology_X** or **run_topology_X_with_batcher** 
@@ -84,6 +83,15 @@ The complete Examples on [Link](https://github.com/Rustixir/blueriver/tree/main/
   * Processor if have not next stage channel must return `ProcResult::Continue` unless 
         processor (skip) that message  
 
+
+
+# Crates.io
+```
+
+tokio_sky = 1.0.0
+
+
+```
 
 
 

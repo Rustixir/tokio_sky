@@ -28,12 +28,12 @@ ingestion and processing of data. It features:
 
   * **Producer** - is source of data piplines 
 
-  * **Processor** - process message also can dispath to next stage by dispatcher 
+  * **Processor** - process message also can dispath to next stage by `dispatcher` 
 
   * **BatchProcessor** process group of message, that is used for last stage, 
         have not next stage   
 
-  * **Dispatcher** - dispatch message with three mode (RoundRobin, BroadCast, Partition)
+  * **Dispatcher** - dispatch message with three mode (`RoundRobin`, `BroadCast`, `Partition`)
 
   * **Customizable** - can use built-in Producer (like Apache Kafka) or write your own Producer 
 
@@ -55,10 +55,10 @@ ingestion and processing of data. It features:
         messages across workers, guaranteeing messages within the same partition 
         are processed in order. For example, if you want to guarantee all 
         events tied to a given user_id are processed in order and not concurrently, 
-        you can use Dispatcher with  'Partition mode' option. See "Ordering and partitioning".
+        you can use Dispatcher with  `Partition` mode option. See "Ordering and partitioning".
 
-  * **Data Collector** - when source (Producer) of your app is web server and
-        need absorb data from client request can use 'Collector' as Producer, 
+  * **Data Collector** - when source `Producer` of your app is web server and
+        need absorb data from client request can use 'Collector' as `Producer`, 
         that asynchronous absorb data, then feeds to pipelines 
 
   * **Graceful shutdown** - first terminate Producers, wait until all processors job done, 
@@ -79,7 +79,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
   
   * **concurrency** - creates multiple instance (For parallelism)  
 
-  * **router** - used by dispatcher for routing message (RoundRobin || BroadCast)
+  * **router** - used by dispatcher for routing message (`RoundRobin` || `BroadCast` || `Partition`)
 
   * **producer_buffer_pool** - producer internally used buffer for increase throughout
 

@@ -1,0 +1,31 @@
+[package]
+name = "blueriver"
+version = "1.0.0"
+edition = "2021"
+authors = ["DanyalMhai@gmail.com"]
+readme = "README.md"
+description = "Concurrent and multi-stage data ingestion and data processing with Rust Tokio"
+license = "Apache-2.0"
+keywords = ["data ingestion", "stage", "piplines", "tokio", "database"]
+homepage   = "https://github.com/Rustixir/blueriver"
+repository = "https://github.com/Rustixir/blueriver"
+
+
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+indexmap = "1.8.1"
+async-trait = "0.1.53"
+tokio = {version = "1.18.1", features=["rt-multi-thread", "macros", "sync", "time"]}
+hashring = "0.3.0"
+
+rdkafka = { version = "0.28.0", features = ["cmake-build"], optional = true }
+
+
+[features]
+default = []
+
+kafka = ["dep:rdkafka"]
+collector = []

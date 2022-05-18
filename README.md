@@ -75,15 +75,15 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 # Explain: 
 
-  * factory - take a fn for creating multiple instance
+  * **factory** - take a fn for creating multiple instance
   
-  * concurrency - creates multiple instance (For parallelism)  
+  * **concurrency** - creates multiple instance (For parallelism)  
 
-  * router - used by dispatcher for routing message (RoundRobin || BroadCast)
+  * **router** - used by dispatcher for routing message (RoundRobin || BroadCast)
 
-  * producer_buffer_pool - producer internally used buffer for increase throughout
+  * **producer_buffer_pool** - producer internally used buffer for increase throughout
 
-  * run_topology - TokioSky always have one Producer Layer
+  * **run_topology** - TokioSky always have one Producer Layer
         and at-least have 1 processor layer and at-max 5 processor layer
         and 1 optional layer `batcher` for creating and syncing components 
         must use **run_topology_X** or **run_topology_X_with_batcher** 

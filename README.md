@@ -75,7 +75,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 # Explain: 
 
-  * **factory** - take a fn for creating multiple instance
+  * **factory** - take a fn for creating a instance
   
   * **concurrency** - creates multiple instance (For parallelism)  
 

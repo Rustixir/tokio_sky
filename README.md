@@ -70,7 +70,9 @@ ingestion and processing of data. It features:
 
 # Examples :
 
-The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/example).
+The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/examples).
+
+
 
 
 # Explain: 
@@ -91,7 +93,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 # Attention
   
-  * Producer.dispatcher cannot be `partition` mode 
+  * Producer.dispatcher cannot be `Partition` mode 
   
   * Processor if have not next stage channel must return `ProcResult::Continue` 
         unless processor (skip) that message  
@@ -102,7 +104,6 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 ```
 tokio_sky = 1.0.0
-
 ```
 
 

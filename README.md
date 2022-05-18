@@ -86,12 +86,12 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
   * **run_topology** - TokioSky always have one Producer Layer
         and at-least have 1 processor layer and at-max 5 processor layer
         and 1 optional layer `batcher` for creating and syncing components 
-        must use **run_topology_X** or **run_topology_X_with_batcher** 
+        must use `run_topology_X` or `run_topology_X_with_batcher` 
 
 
 # Attention
   
-  * Producer.dispatcher cannot be **partition** mode 
+  * Producer.dispatcher cannot be `partition` mode 
   
   * Processor if have not next stage channel must return `ProcResult::Continue` 
         unless processor (skip) that message  

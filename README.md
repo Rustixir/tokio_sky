@@ -12,44 +12,57 @@
 
 
 
-Build concurrent and multi-stage data ingestion and data processing pipelines with Rust+Tokio. 
-TokioSky allows developers to consume data efficiently from different sources, known as producers, 
-such as Apache Kafka and others. TokioSky pipelines are highly concurrent, robust
+Build concurrent and multi-stage data ingestion and data processing 
+pipelines with Rust+Tokio. TokioSky allows developers to consume data efficiently 
+from different sources, known as producers, such as Apache Kafka and others. 
 inspired by elixir broadway
 
 
 
 ## Features
 
-TokioSky takes the burden of defining concurrent GenStage topologies and provide a simple configuration API that automatically defines concurrent producers, concurrent processing, 
-leading to both time and cost efficient ingestion and processing of data. It features:
+TokioSky takes the burden of defining concurrent GenStage topologies and provide 
+a simple configuration API that automatically defines concurrent producers, 
+concurrent processing, leading to both time and cost efficient 
+ingestion and processing of data. It features:
 
   * **Producer** - is source of data piplines 
 
   * **Processor** - process message also can dispath to next stage by dispatcher 
 
-  * **BatchProcessor** process group of message, that is used for last stage, have not next stage   
+  * **BatchProcessor** process group of message, that is used for last stage, 
+        have not next stage   
 
   * **Dispatcher** - dispatch message with three mode (RoundRobin, BroadCast, Partition)
 
   * **Customizable** - can use built-in Producer (like Apache Kafka) or write your own Producer 
 
-  * **Batching** - TokioSky provides built-in batching, allowing you to group messages 
-        either by size and/or by time. This is important in systems such as Amazon SQS, 
-        where batching is the most efficient way to consume messages, both in terms of time and cost.
-        **Good Example**  imagine processor has to check out a database connection to insert a record for every single insert operation, That’s pretty inefficient, especially if we’re processing lots of inserts.Fortunately, with TokioSky we can use this technique, is grouping operations into batches, otherwise known as Partitioning. For insert operation, we want to insert entries into the database, but there’s certainly no need to do so one entry at a time.
+  * **Batching** - TokioSky provides built-in batching, allowing you to 
+        group messages either by size and/or by time. This is important in systems
+        such as Amazon SQS, where batching is the most efficient way to consume messages, 
+        both in terms of time and cost. **Good Example**  imagine processor has to check out 
+        a database connection to insert a record for every single insert operation, That’s 
+        pretty inefficient, especially if we’re processing lots of inserts.Fortunately, 
+        with TokioSky we can use this technique, is grouping operations into batches, 
+        otherwise known as Partitioning. For insert operation, we want to insert entries 
+        into the database, but there’s certainly no need to do so one entry at a time.
   
-  * **Dynamic batching** - TokioSky allows developers to batch messages based on custom criteria. For    
-        example, if your pipeline needs to build batches based on the user_id, email address, etc, 
+  * **Dynamic batching** - TokioSky allows developers to batch messages based 
+        on custom criteria. For example, if your pipeline needs to build batches 
+        based on the user_id, email address, etc, 
 
-  * **Ordering and Partitioning**  - TokioSky allows developers to partition messages across workers, 
-        guaranteeing messages within the same partition are processed in order. For example, if you want to guarantee all events tied to a given user_id are processed in order and not concurrently, you can use Dispatcher with  'Partition mode' option. See "Ordering and partitioning".
+  * **Ordering and Partitioning**  - TokioSky allows developers to partition 
+        messages across workers, guaranteeing messages within the same partition 
+        are processed in order. For example, if you want to guarantee all 
+        events tied to a given user_id are processed in order and not concurrently, 
+        you can use Dispatcher with  'Partition mode' option. See "Ordering and partitioning".
 
   * **Data Collector** - when source (Producer) of your app is web server and
         need absorb data from client request can use 'Collector' as Producer, 
         that asynchronous absorb data, then feeds to pipelines 
 
-  * **Graceful shutdown** - first terminate Producers, wait until all processors job done, then shutdown
+  * **Graceful shutdown** - first terminate Producers, wait until all processors job done, 
+        then shutdown
   
   * **Topology** - create and syncing components
 
@@ -71,25 +84,24 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
   * producer_buffer_pool - producer internally used buffer for increase throughout
 
   * run_topology - TokioSky always have one Producer Layer
-        and at-least have 1_processor_layer and at-max 5_processor_layer
-        and 1 optional layer `batcher` for creating and syncing components must use 
-        **run_topology_X** or **run_topology_X_with_batcher** 
+        and at-least have 1 processor layer and at-max 5 processor layer
+        and 1 optional layer `batcher` for creating and syncing components 
+        must use **run_topology_X** or **run_topology_X_with_batcher** 
 
 
 # Attention
   
   * Producer.dispatcher cannot be **partition** mode unless panic occur
   
-  * Processor if have not next stage channel must return `ProcResult::Continue` unless 
-        processor (skip) that message  
+  * Processor if have not next stage channel must return `ProcResult::Continue` 
+        unless processor (skip) that message  
 
 
 
 # Crates.io
+
 ```
-
 tokio_sky = 1.0.0
-
 
 ```
 
@@ -192,3 +204,14 @@ impl Processor<usize, ()> for Layer1Process {
 
 
 ```
+
+
+## Author
+*   DanyalMh
+
+
+# License
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

@@ -77,7 +77,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
 
 # Explain: 
 
-  * **factory** - factory instance 
+  * **factory** - instance factory  
   
   * **concurrency** - creates multiple instance (For parallelism)  
 

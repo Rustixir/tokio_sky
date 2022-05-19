@@ -35,7 +35,8 @@ ingestion and processing of data. It features:
 
   * **Dispatcher** - dispatch message with three mode (`RoundRobin`, `BroadCast`, `Partition`)
 
-  * **Customizable** - can use built-in Producer (like Apache Kafka) or write your own Producer 
+  * **Customizable** - can use built-in Producer/Processor like 
+            **Apache Kafka**, **Apache Pulsar** or write your own Producer/Processor
 
   * **Batching** - TokioSky provides built-in batching, allowing you to 
         group messages either by size and/or by time. This is important in systems
@@ -98,6 +99,7 @@ The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/
   * Processor if have not next stage channel must return `ProcResult::Continue` 
         unless processor (skip) that message  
 
+  * All **Built-in processor** if have next stage, **must dispatcher not be partition mode**
 
 
 # Crates.io

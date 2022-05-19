@@ -5,6 +5,15 @@ use rdkafka::{ClientConfig, config::RDKafkaLogLevel, ClientContext, consumer::{C
 
 use crate::{Producer, producer::Terminate};
 
+use crate::topology:: {
+    ProcessingType,
+    PRODUCER_FILLBUFFER_TIMEOUT_BATCH,
+    PRODUCER_FILLBUFFER_TIMEOUT_REALTIME
+};
+
+
+
+
 
 // A type alias with your custom consumer can be created for convenience.
 type LoggingConsumer = StreamConsumer<CustomContext>;
@@ -28,21 +37,22 @@ impl ClientContext for CustomContext {}
 
 impl ConsumerContext for CustomContext {
     fn pre_rebalance(&self, rebalance: &Rebalance) {
-        println!("Pre rebalance {:?}", rebalance);
+        // println!("Pre rebalance {:?}", rebalance);
     }
 
     fn post_rebalance(&self, rebalance: &Rebalance) {
-        println!("Post rebalance {:?}", rebalance);
+        // println!("Post rebalance {:?}", rebalance);
     }
 
     fn commit_callback(&self, result: KafkaResult<()>, _offsets: &TopicPartitionList) {
-        println!("Committing offsets: {:?}", result);
+        // println!("Committing offsets: {:?}", result);
     }
 }
 
 
 pub struct KafkaProducer {
-    kafka_consumer: LoggingConsumer
+    kafka_consumer: LoggingConsumer,
+    tp: ProcessingType
 }
 
 impl KafkaProducer {
@@ -51,7 +61,8 @@ impl KafkaProducer {
                topics: &[&str],
                enable_partition_eof: bool,
                session_timeout_ms: &str,
-               auto_offset_reset: &str) -> Self {
+               auto_offset_reset: &str,
+               tp: ProcessingType) -> Self {
         
         let context = CustomContext;
 
@@ -71,7 +82,8 @@ impl KafkaProducer {
             .expect("Can't subscribe to specified topics");
     
         KafkaProducer {
-            kafka_consumer: consumer
+            kafka_consumer: consumer,
+            tp
         }
     }
 }
@@ -93,8 +105,12 @@ impl Producer<ProdKafkaMessage> for KafkaProducer {
         let mut buffer = VecDeque::with_capacity(buffer_size);
 
 
-        // if cannot recv after from
-        let sleep = tokio::time::sleep(Duration::from_millis(50));
+        let sleep = match self.tp {
+            ProcessingType::RealTime => PRODUCER_FILLBUFFER_TIMEOUT_REALTIME,
+            ProcessingType::Batch    => PRODUCER_FILLBUFFER_TIMEOUT_BATCH,
+            ProcessingType::CustomTimeout(d) => d
+        };
+        
         tokio::pin!(sleep);
         
         loop {

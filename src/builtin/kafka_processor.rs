@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use async_trait::async_trait;
-use rdkafka::{producer::{FutureProducer, FutureRecord}, ClientConfig, error::KafkaError};
+use rdkafka::{producer::{FutureProducer, FutureRecord}, ClientConfig, error::KafkaError, util::Timeout};
 
 use crate::{ProcResult, Processor};
 
@@ -64,7 +64,7 @@ impl Processor<ProcKafkaMessage, OwnedDeliveryResult> for KafkaProcessor {
                     .partition(msg.partition);
 
 
-        let res = self.fut_producer.send(rec, Duration::from_secs(0)).await;
+        let res = self.fut_producer.send(rec, Timeout::Never).await;
 
         let delivery: OwnedDeliveryResult = match res {
                 Ok((p, o)) => {

@@ -21,11 +21,14 @@ async-trait = "0.1.53"
 tokio = {version = "1.18.1", features=["rt-multi-thread", "macros", "sync", "time"]}
 hashring = "0.3.0"
 
-rdkafka = { version = "0.28.0", features = ["cmake-build"], optional = true }
-
+rdkafka  = { version = "0.28.0", features = ["cmake-build"], optional = true }
+pulsar   = { version = "4.1.1",  optional = true } 
+futures  = { version = "0.3.21", optional = true }
 
 [features]
-default = []
+default = ["full"]
 
-kafka = ["dep:rdkafka"]
+full      = ["kafka", "pulsar", "collector"]
+kafka     = ["dep:rdkafka"]
+pulsar    = ["dep:pulsar", "dep:futures"]
 collector = []

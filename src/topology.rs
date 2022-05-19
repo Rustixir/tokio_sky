@@ -11,12 +11,36 @@ use tokio::sync::{mpsc::{channel, self}, oneshot};
 use crate::{producer::{Producer, self}, dispatcher::{Dispatcher, RouterType}, processor};
 
 
+pub const PRODUCER_FILLBUFFER_TIMEOUT_REALTIME: Duration = Duration::from_millis(2);
+pub const PRODUCER_FILLBUFFER_TIMEOUT_BATCH: Duration = Duration::from_millis(50);
+
 pub const BATCH_SIZE: usize = 100;
-pub const BATCH_TIMEOUT: Duration = Duration::from_millis(1000);
+pub const BATCH_TIMEOUT: Duration = Duration::from_millis(50);
 pub const CONCURRENCY: i32 = 1;
 pub const BUFFER_SIZE: usize = 10;
 pub const BUFFER_POOL_SIZE: usize = 100;
 
+
+/// Realtime, timeout is 1 milliseconds
+/// Batch,    timeout is 50 milliseconds
+/// 
+/// ## Batch
+///     producer await until buffer full or timeout
+///     in Batch timeout is 50 milliseconds increase latency 
+///     if need fast serving data this is not best way
+/// 
+/// ## RealTime
+///     producer await until buffer full or timeout
+///     in RealTime timeout is 1 milliseconds decrease latency
+///     but may increase cpu usage 
+/// 
+/// ## CustomTimeout
+///     if want set timeout custom  
+pub enum ProcessingType {
+    RealTime,
+    Batch,
+    CustomTimeout(Duration)
+}
 
 
 

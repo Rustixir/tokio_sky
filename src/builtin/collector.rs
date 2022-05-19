@@ -6,6 +6,13 @@ use tokio::sync::mpsc::Receiver;
 use crate::{Producer, producer::Terminate};
 
 
+use crate::topology:: {
+    ProcessingType,
+    PRODUCER_FILLBUFFER_TIMEOUT_BATCH,
+    PRODUCER_FILLBUFFER_TIMEOUT_REALTIME
+};
+
+
 
 /// This module provide a data collector
 /// 
@@ -16,14 +23,15 @@ use crate::{Producer, producer::Terminate};
 
 pub struct Collector<Input> {
     recv: Receiver<Input>,
-    timeout: Duration
+    tp: ProcessingType
 }
 
 impl<Input> Collector<Input> {
-    pub fn new(recv: Receiver<Input>, timeout: Duration) -> Self {
+    pub fn new(recv: Receiver<Input>, 
+               tp: ProcessingType) -> Self {
         Collector {
             recv,
-            timeout
+            tp
         }
     }
 }
@@ -45,7 +53,12 @@ where
 
         let mut buffer = VecDeque::with_capacity(buffer_size);
 
-        let sleep = tokio::time::sleep(self.timeout);
+        let sleep = match self.tp {
+            ProcessingType::RealTime => PRODUCER_FILLBUFFER_TIMEOUT_REALTIME,
+            ProcessingType::Batch    => PRODUCER_FILLBUFFER_TIMEOUT_BATCH,
+            ProcessingType::CustomTimeout(d) => d
+        };
+
         tokio::pin!(sleep);
         
         loop {
@@ -61,8 +74,8 @@ where
                 }
                 res = self.recv.recv() => {
                     match res {
-                        Some(stream) => {
-                            buffer.push_back(stream);
+                        Some(msg) => {
+                            buffer.push_back(msg);
                             if buffer.len() == buffer_size {
                                 return Ok(buffer)
                             }
@@ -74,9 +87,9 @@ where
                                 // return buffer
                                 return Ok(buffer)
                             
-                            } else {
-                                return Err(Terminate);
-                            }
+                            } 
+                            
+                            return Err(Terminate);
                         }
                     }
                 }

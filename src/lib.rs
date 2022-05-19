@@ -42,25 +42,4 @@ pub use producer::Producer;
 
 
 
-pub use topology::{
-
-    run_topology_1, 
-    run_topology_2, 
-    run_topology_3,
-    run_topology_4,
-    run_topology_5,
-
-    run_topology_1_with_batcher,
-    run_topology_2_with_batcher,
-    run_topology_3_with_batcher,
-    run_topology_4_with_batcher,
-    run_topology_5_with_batcher,
-
-    CONCURRENCY,
-    BUFFER_POOL_SIZE,
-    BUFFER_SIZE,
-    BATCH_SIZE,
-    BATCH_TIMEOUT
-
-};
-
+pub mod topology;

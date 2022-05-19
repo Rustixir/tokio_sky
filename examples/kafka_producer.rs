@@ -19,7 +19,8 @@ async fn main() {
                                    topics, 
                                    enable_partition_eof, 
                                    session_timeout_ms, 
-                                   auto_offset_reset);
+                                   auto_offset_reset,
+                                   ProcessingType::Batch);
     
     let producer_concurrency = 3;
     let producer_router = RouterType::RoundRobin;
@@ -41,11 +42,11 @@ async fn main() {
     //  
 
 
-    //              /     kafka_processor-1 
-    //  producer-1 /
-    //  producer-2 ----   kafka_processor-2
-    //  producer-3 \
-    //              \     kafka_processor-3
+    //                    /     processor-1 
+    //  kafka_producer-1 /
+    //  kafka_producer-2 ----   processor-2
+    //  kafka_producer-3 \
+    //                    \     processor-3
     //               
 
     let safe_shutdown = 

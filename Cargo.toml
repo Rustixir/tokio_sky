@@ -6,7 +6,7 @@ authors = ["DanyalMhai@gmail.com"]
 readme = "README.md"
 description = "Concurrent and multi-stage data ingestion and data processing with Rust Tokio"
 license = "Apache-2.0"
-keywords = ["data ingestion", "stage", "piplines", "tokio", "database"]
+keywords = ["ingestion", "stage", "piplines", "tokio", "database"]
 homepage   = "https://github.com/Rustixir/tokio_sky"
 repository = "https://github.com/Rustixir/tokio_sky"
 

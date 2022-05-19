@@ -69,14 +69,14 @@ ingestion and processing of data. It features:
 
 
 
-# Examples :
+# Examples
 
 The complete Examples on [Link](https://github.com/Rustixir/tokio_sky/tree/main/examples).
 
 
 
 
-# Explain: 
+# Explain 
 
   * **factory** - instance factory  
   

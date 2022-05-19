@@ -98,7 +98,10 @@ impl Producer<ProcKafkaMessage> for Prod {
 
 
 
-struct DeliveryHandler;
+struct DeliveryHandler {
+    deadletter_destination: /* .... */
+}
+
 #[async_trait]
 impl Processor<OwnedDeliveryResult, ()> for Layer2Process {
     async fn init(&mut self) {}
@@ -112,6 +115,7 @@ impl Processor<OwnedDeliveryResult, ()> for Layer2Process {
             }
             Err((kafka_err, msg)) => {
 
+                // TODO: Push to dead letter or requeue
             }
         }
 

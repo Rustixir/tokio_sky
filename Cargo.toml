@@ -26,7 +26,7 @@ pulsar   = { version = "4.1.1",  optional = true }
 futures  = { version = "0.3.21", optional = true }
 
 [features]
-default = ["full"]
+default = []
 
 full      = ["kafka", "pulsar", "collector"]
 kafka     = ["dep:rdkafka"]

@@ -15,7 +15,6 @@ pub mod kafka_processor;
 
 
 
-
 #[cfg(feature = "pulsar")]
 pub mod pulsar_producer;
 

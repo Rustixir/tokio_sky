@@ -118,10 +118,15 @@ impl Processor<DeliveryResult, ()> for Layer2Process {
         
         match msg {
             Some(send_future) => {
-                
+                match send_future.await {
+                    Ok(_) => (),
+                    Err(_e) => {
+                        // TODO: handle error
+                    }
+                }
             }
             Err(pulsar_err) => {
-
+                // TODO: Push to dead letter or requeue
             }
         }
 

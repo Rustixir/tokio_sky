@@ -42,7 +42,8 @@ ingestion and processing of data. It features:
   * **Batching** - TokioSky provides built-in batching, allowing you to 
         group messages either by size and/or by time. This is important in systems
         such as Amazon SQS, where batching is the most efficient way to consume messages, 
-        both in terms of time and cost. **Good Example**  imagine processor has to check out 
+        both in terms of time and cost. 
+        **Good Example**  imagine processor has to check out 
         a database connection to insert a record for every single insert operation, That’s 
         pretty inefficient, especially if we’re processing lots of inserts.Fortunately, 
         with TokioSky we can use this technique, is grouping operations into batches, 
@@ -52,16 +53,19 @@ ingestion and processing of data. It features:
   * **Dynamic batching** - TokioSky allows developers to batch messages based 
         on custom criteria. For example, if your pipeline needs to build batches 
         based on the user_id, email address, etc, 
+        See [Example](https://github.com/Rustixir/tokio_sky/tree/main/examples/dynamic_batching.rs) 
 
   * **Ordering and Partitioning**  - TokioSky allows developers to partition 
         messages across workers, guaranteeing messages within the same partition 
         are processed in order. For example, if you want to guarantee all 
         events tied to a given user_id are processed in order and not concurrently, 
-        you can use Dispatcher with  `Partition` mode option. See "Ordering and partitioning".
+        you can use Dispatcher with  `Partition` mode option. 
+        See [Example](https://github.com/Rustixir/tokio_sky/tree/main/examples/ordering_and_paritioning.rs).
 
   * **Data Collector** - when source `Producer` of your app is web server and
         need absorb data from client request can use 'Collector' as `Producer`, 
         that asynchronous absorb data, then feeds to pipelines 
+        See [Example](https://github.com/Rustixir/tokio_sky/tree/main/examples/collector.rs)
 
   * **Graceful shutdown** - first terminate Producers, wait until all processors job done, 
         then shutdown

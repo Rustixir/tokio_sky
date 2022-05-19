@@ -35,8 +35,8 @@ ingestion and processing of data. It features:
 
   * **Dispatcher** - dispatch message with three mode (`RoundRobin`, `BroadCast`, `Partition`)
 
-  * **Customizable** - can use built-in Producer/Processor like 
-            **Apache Kafka**, **Apache Pulsar** or write your own Producer/Processor
+  * **Customizable** - can use built-in Producer/Processor like **Apache Kafka**, **Apache Pulsar** 
+        or write your own Producer/Processor
 
   * **Batching** - TokioSky provides built-in batching, allowing you to 
         group messages either by size and/or by time. This is important in systems

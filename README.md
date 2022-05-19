@@ -37,7 +37,7 @@ ingestion and processing of data. It features:
 
   * **Customizable** - can use built-in `Producer`, `Processor`, `BatchProcessor` 
       like **Apache Kafka**, **Apache Pulsar** or 
-      write your own `Producer`, `Processor`, `BatchProcessor`
+      write your custom `Producer`, `Processor`, `BatchProcessor`
 
   * **Batching** - TokioSky provides built-in batching, allowing you to 
         group messages either by size and/or by time. This is important in systems
@@ -47,8 +47,9 @@ ingestion and processing of data. It features:
         a database connection to insert a record for every single insert operation, That’s 
         pretty inefficient, especially if we’re processing lots of inserts.Fortunately, 
         with TokioSky we can use this technique, is grouping operations into batches, 
-        otherwise known as Partitioning. for batch insert operation into database.
-  
+        otherwise known as Partitioning.
+        See [Example](https://github.com/Rustixir/tokio_sky/tree/main/examples/batch_insert_mysql.rs) 
+
   * **Dynamic batching** - TokioSky allows developers to batch messages based 
         on custom criteria. For example, if your pipeline needs to build batches 
         based on the user_id, email address, etc, 

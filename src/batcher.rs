@@ -15,8 +15,8 @@ pub trait BatchProcessor<Input> {
     
     async fn init(&mut self);
     
-    /// if return ProcResult::Dispatch
-    ///    and Dispatcher is Partition must set batch_key
+    /// if return `ProcResult::Dispatch` and Dispatcher mode is `Partition` must set `batch_key`
+
     async fn handle_batch(&mut self, batch: Vec<Input>) -> Result<(), BatcherTerminate<Input>>;
 
     async fn drain(&mut self, batch: Vec<Input>);

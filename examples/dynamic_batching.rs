@@ -17,7 +17,7 @@ async fn main() {
     let proc_buffer_size = 10;
 
 
-    let batcher_factory = || Printer;
+    let batcher_factory = || Batcher;
     let batcher_concurrency = 2;
     let batcher_buffer_size = 10;
     let batcher_batch_size = 10;
@@ -25,12 +25,6 @@ async fn main() {
     
     
 
-    // 1. create X processor instances by 'proc_concurrency'
-    //
-    // 2. create X producer instances  by 'producer_concurrency'
-    // 
-    // 3. create topology and syncing
-    //  
     //                                      ---> batcher[category_id]
     //                                    /       
     //              /     processor-1    /
@@ -46,14 +40,16 @@ async fn main() {
                    producer_router,
                    producer_buffer_pool,
                 
-                   proc1_factory,
-                   proc1_concurrency,
-                   proc1_router,
-                   proc1_buffer_size,
+                   proc_factory,
+                   proc_concurrency,
+                   proc_router,
+                   proc_buffer_size,
 
-                   proc2_factory,
-                   proc2_concurrency,
-                   proc2_buffer_size
+                   batcher_factory,
+                   batcher_concurrency,
+                   batcher_buffer_size,
+                   batcher_batch_size,
+                   batcher_batch_timeout
                 );
 
     
@@ -129,8 +125,8 @@ impl Processor<Product, Product> for Layer1Process {
 }
 
 
-struct Layer2Process;
-impl Layer2Process {
+struct Batcher;
+impl Batcher {
     pub fn batch_cars_insert(&self, batch: Vec<Product>) {
         ()
     }
@@ -142,7 +138,7 @@ impl Layer2Process {
     }
 }
 #[async_trait]
-impl BatchProcessor<Product, ()> for Layer2Process {
+impl BatchProcessor<Product, ()> for Batcher {
     async fn init(&mut self) {}
     async fn terminate(&mut self) {}
 

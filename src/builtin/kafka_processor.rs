@@ -62,7 +62,7 @@ impl Processor<ProcKafkaMessage, OwnedDeliveryResult> for KafkaProcessor {
                     .payload(&msg.payload)
                     .key(&msg.key)
                     .partition(msg.partition);
-
+        
 
         let res = self.fut_producer.send(rec, Timeout::Never).await;
 

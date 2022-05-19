@@ -47,8 +47,7 @@ ingestion and processing of data. It features:
         a database connection to insert a record for every single insert operation, That’s 
         pretty inefficient, especially if we’re processing lots of inserts.Fortunately, 
         with TokioSky we can use this technique, is grouping operations into batches, 
-        otherwise known as Partitioning. For insert operation, we want to insert entries 
-        into the database, but there’s certainly no need to do so one entry at a time.
+        otherwise known as Partitioning. for batch insert operation into database.
   
   * **Dynamic batching** - TokioSky allows developers to batch messages based 
         on custom criteria. For example, if your pipeline needs to build batches 

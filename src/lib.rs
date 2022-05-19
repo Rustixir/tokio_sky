@@ -41,5 +41,3 @@ pub use dispatcher::RouterType;
 pub use producer::Producer;
 
 
-
-pub mod topology;

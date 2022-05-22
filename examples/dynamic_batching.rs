@@ -115,9 +115,10 @@ impl Processor<Product, Product> for Layer1Process {
     async fn handle_message(&mut self, msg: Product) ->  ProcResult<Product> {
 
         // Parition_key
-        let pk = match msg.utype {
-            UserType::Admin => "admin".to_owned(),
-            UserType::Client => "client".to_owned(),
+        let pk = match msg.ctype {
+            Category::Cars => "cars".to_owned(),
+            Category::Mobiles => "mobiles".to_owned(),
+            Category::Accessories => "accessories".to_owned()
         };
 
         ProcResult::Dispatch(msg,  Some(pk))

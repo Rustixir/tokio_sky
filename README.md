@@ -14,7 +14,7 @@
 
 Build concurrent and multi-stage data ingestion and data processing 
 pipelines with Rust+Tokio. TokioSky allows developers to consume data efficiently 
-from different sources, known as producers, such as Apache Kafka and others. 
+from different sources, known as producers, such as Apache Kafka, Apache Pulsar and others. 
 inspired by elixir broadway
 
 

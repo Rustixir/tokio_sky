@@ -26,12 +26,12 @@ a simple configuration API that automatically defines concurrent producers,
 concurrent processing, leading to both time and cost efficient 
 ingestion and processing of data. It features:
 
-  * **Producer** - source of data piplines 
+  * **Producer** - source of data pipelines 
 
-  * **Processor** - process message also can dispath to next stage by `dispatcher` 
+  * **Processor** - process message also can send to next stage by `dispatcher` 
 
-  * **BatchProcessor** process group of message, that is used for last stage, 
-        have not next stage   
+  * **BatchProcessor** process group of message, that is used for latest stage, 
+        can not have next stage   
 
   * **Dispatcher** - dispatch message with three mode (`RoundRobin`, `BroadCast`, `Partition`)
 
